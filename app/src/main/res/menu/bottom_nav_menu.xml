@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_home_navDraw"
+        android:title="Home"
+        android:icon="@drawable/home_outline"/>
+
+    <item
+        android:id="@+id/action_add_navDraw"
+        android:title="New Post"
+        android:icon="@drawable/add_outline"/>
+
+    <item
+        android:id="@+id/action_profile_navDraw"
+        android:title="My Stuff"
+        android:icon="@drawable/person_outline"/>
+    <item
+        android:id="@+id/action_settings_navDraw"
+        android:title="Settings"
+        android:icon="@drawable/settings_outline"/>
+
+</menu>

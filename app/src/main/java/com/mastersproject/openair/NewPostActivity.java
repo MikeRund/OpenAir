@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,11 +30,12 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.mastersproject.openair.model.Post;
+import com.mastersproject.openair.ui.BaseActivity;
 import com.mastersproject.openair.util.User;
 
 import java.util.Date;
 
-public class NewPostActivity extends AppCompatActivity {
+public class NewPostActivity extends BaseActivity {
 
     private static final int GALLERY_CODE = 1;
     private Button saveBTN;
@@ -55,6 +58,7 @@ public class NewPostActivity extends AppCompatActivity {
     private StorageReference storageReference;
     private CollectionReference collectionReference = db.collection("Journal");
     private Uri imageUri;
+    private BottomNavigationView bottomNavigationView;
 
     public NewPostActivity() {
     }
@@ -74,6 +78,12 @@ public class NewPostActivity extends AppCompatActivity {
         imageIV = findViewById(R.id.postIV);
         addPhotoButton = findViewById(R.id.postCameraBTN);
         saveBTN = findViewById(R.id.postSaveBTN);
+
+        // Nav draw
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+        bottomNavigationView.setSelectedItemId(R.id.action_add_navDraw);
+
 
         // Set title to username of instance
         if (User.getInstance() != null){
@@ -155,7 +165,7 @@ public class NewPostActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onSuccess(DocumentReference documentReference) {
                                                     progressBar.setVisibility(View.INVISIBLE);
-                                                    startActivity(new Intent(NewPostActivity.this, PostListActivity.class));
+                                                    startActivity(new Intent(NewPostActivity.this, HomePostListActivity.class));
                                                     finish();
                                                 }
                                             }).addOnFailureListener(new OnFailureListener() {
@@ -203,6 +213,41 @@ public class NewPostActivity extends AppCompatActivity {
         super.onStop();
         if (firebaseAuth != null) {
             firebaseAuth.removeAuthStateListener(authStateListener);
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int itemID = item.getItemId();
+        Intent i;
+
+        if (itemID == R.id.action_home_navDraw){
+
+            i = new Intent(NewPostActivity.this, HomePostListActivity.class);
+            startActivity(i);
+            return true;
+
+        } else if (itemID == R.id.action_add_navDraw){
+
+//            i = new Intent(NewPostActivity.this, NewPostActivity.class);
+//            startActivity(i);
+            Toast.makeText(this, "Nav Bar Working", Toast.LENGTH_SHORT).show();
+            return true;
+
+        } else if (itemID == R.id.action_profile_navDraw){
+
+            i = new Intent(NewPostActivity.this, MyStuffActivity.class);
+            startActivity(i);
+            return true;
+
+        } else if (itemID == R.id.action_settings_navDraw){
+
+            i = new Intent(NewPostActivity.this, SettingsActivity.class);
+            startActivity(i);
+            return true;
+
+        } else {
+            return false;
         }
     }
 }
