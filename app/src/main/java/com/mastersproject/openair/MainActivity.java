@@ -2,6 +2,7 @@ package com.mastersproject.openair;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -55,6 +56,12 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize Firebase Auth
         firebaseAuth = FirebaseAuth.getInstance();
+
+        // Action bar
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle("Log In");
+        }
 
         // Functionality
         signUpBTN.setOnClickListener(new View.OnClickListener() {

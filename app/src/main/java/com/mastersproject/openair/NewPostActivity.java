@@ -6,15 +6,18 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -43,6 +46,14 @@ public class NewPostActivity extends BaseActivity {
     private ImageView addPhotoButton, imageIV;
     private EditText titleET, descriptionET;
     private TextView currentUserTextView;
+    private Spinner spinner;
+
+    // Activity Checks
+    private Boolean isWaterActivity;
+    private Boolean isHikeActivity;
+    private Boolean isExerciseActivity;
+    private Boolean isWalkActivity;
+    private Boolean isStreak;
 
     // User ID & Username
     private String currentUserId;
@@ -56,7 +67,7 @@ public class NewPostActivity extends BaseActivity {
     // Firebase Connection
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private StorageReference storageReference;
-    private CollectionReference collectionReference = db.collection("Journal");
+    private CollectionReference collectionReference = db.collection("Post");
     private Uri imageUri;
     private BottomNavigationView bottomNavigationView;
 
@@ -72,12 +83,27 @@ public class NewPostActivity extends BaseActivity {
         storageReference = FirebaseStorage.getInstance().getReference();
         firebaseAuth = FirebaseAuth.getInstance();
         progressBar = findViewById(R.id.postProgressBar);
+        progressBar.setVisibility(View.INVISIBLE);
         titleET = findViewById(R.id.postTitleET);
         descriptionET = findViewById(R.id.postDescriptionET);
         currentUserTextView = findViewById(R.id.postUsernameTV);
         imageIV = findViewById(R.id.postIV);
         addPhotoButton = findViewById(R.id.postCameraBTN);
         saveBTN = findViewById(R.id.postSaveBTN);
+        spinner = findViewById(R.id.activty_spinner);
+
+        // Action bar
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle("New Post");
+        }
+
+        // Spinner
+        String[] activities = {"Surf", "Sport", "Hike", "Swim", "Run", "Walk", "General Water Activity", "General Outdoor Activity",
+                                "Workout", "Other"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, activities);
+        spinner.setAdapter(adapter);
+        //spinner.setVisibility(View.VISIBLE);
 
         // Nav draw
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
@@ -108,7 +134,7 @@ public class NewPostActivity extends BaseActivity {
         saveBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SaveJournal();
+                SavePost();
             }
         });
 
@@ -124,18 +150,19 @@ public class NewPostActivity extends BaseActivity {
 
     }
 
-    private void SaveJournal() {
+    private void SavePost() {
         final String title = titleET.getText().toString().trim();
         final String description = descriptionET.getText().toString().trim();
+        final String selectedActivity = spinner.getSelectedItem().toString().trim();
 
         progressBar.setVisibility(View.VISIBLE);
 
         if(!TextUtils.isEmpty(title) && !TextUtils.isEmpty(description) && imageUri != null){
 
             // Saving the path of the images in Storage Firebase
-            // .../journal_images/our_image.png
+            // .../post_images/our_image.png
             final StorageReference filepath = storageReference
-                    .child("journal_images")
+                    .child("post_images")
                     .child("my_image" + Timestamp.now().getSeconds());
 
             // Uploading the image
@@ -150,7 +177,7 @@ public class NewPostActivity extends BaseActivity {
 
                                     String imageUrl = uri.toString();
 
-                                    // Creating object of Journal
+                                    // Creating object of Post
                                     Post post = new Post();
                                     post.setTitle(title);
                                     post.setDescription(description);
@@ -159,11 +186,41 @@ public class NewPostActivity extends BaseActivity {
                                     post.setUsername(currentUsername);
                                     post.setUserId(currentUserId);
 
+                                    // Checking Activity Type
+                                    isWaterActivity = selectedActivity.equals("Surf") || selectedActivity.equals("Swim")
+                                            || selectedActivity.equals("General Water Activity");
+
+                                    isExerciseActivity = selectedActivity.equals("Run") || selectedActivity.equals("Workout")
+                                            || selectedActivity.equals("Sport");
+
+                                    isHikeActivity = selectedActivity.equals("Hike");
+
+                                    isWalkActivity = selectedActivity.equals("Walk");
+
+                                    // Incrementing Activity Types
+                                    if (isWaterActivity) {
+                                        User.getInstance().incrementWaterActivities();
+                                        User.getInstance().incrementTotalActivities();
+                                    } else if (isWalkActivity) {
+                                        User.getInstance().incrementWalkActivities();
+                                        User.getInstance().incrementTotalActivities();
+                                    } else if (isHikeActivity) {
+                                        User.getInstance().incrementHikeActivities();
+                                        User.getInstance().incrementTotalActivities();
+                                    } else if (isExerciseActivity) {
+                                        User.getInstance().incrementExerciseActivities();
+                                        User.getInstance().incrementTotalActivities();
+                                    } else {
+                                        User.getInstance().incrementTotalActivities();
+                                    }
+
+
                                     // Invoking Collection Reference
                                     collectionReference.add(post)
                                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                                 @Override
                                                 public void onSuccess(DocumentReference documentReference) {
+                                                    updateUserFirestoreData();
                                                     progressBar.setVisibility(View.INVISIBLE);
                                                     startActivity(new Intent(NewPostActivity.this, HomePostListActivity.class));
                                                     finish();
@@ -187,6 +244,30 @@ public class NewPostActivity extends BaseActivity {
         } else {
             progressBar.setVisibility(View.INVISIBLE);
         }
+    }
+
+    private void updateUserFirestoreData() {
+        DocumentReference userDocRef = db.collection("Users").document(currentUserId);
+        
+        // Update Activity Data
+        userDocRef.update(
+                "waterActivities", User.getInstance().getWaterActivities(),
+                "walkActivities", User.getInstance().getWalkActivities(),
+                "hikeActivities", User.getInstance().getHikeActivities(),
+                "exerciseActivities", User.getInstance().getExerciseActivities(),
+                "totalActivities", User.getInstance().getTotalActivities()
+        ).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(NewPostActivity.this, "Activity statistics Successfully updated", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(NewPostActivity.this, "Database update error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 
     @Override
@@ -228,10 +309,6 @@ public class NewPostActivity extends BaseActivity {
             return true;
 
         } else if (itemID == R.id.action_add_navDraw){
-
-//            i = new Intent(NewPostActivity.this, NewPostActivity.class);
-//            startActivity(i);
-            Toast.makeText(this, "Nav Bar Working", Toast.LENGTH_SHORT).show();
             return true;
 
         } else if (itemID == R.id.action_profile_navDraw){

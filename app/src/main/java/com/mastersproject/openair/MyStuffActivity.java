@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,7 +40,7 @@ public class MyStuffActivity extends BaseActivity {
     private FirebaseAuth.AuthStateListener authStateListener;
     private FirebaseUser user;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference collectionReference = db.collection("Journal");
+    private CollectionReference collectionReference = db.collection("Post");
     private StorageReference storageReference;
     private List<Post> postList;
 
@@ -46,6 +48,16 @@ public class MyStuffActivity extends BaseActivity {
     private PostRecyclerViewAdapter postRecyclerViewAdapter;
     private TextView noPostText;
     private BottomNavigationView bottomNavigationView;
+
+    // Badges
+    final private int THRESHOLD_VALUE = 2;
+    private int userWaterActivities;
+    private int userWalkActivities;
+    private int userHikeActivities;
+    private int userExerciseActivities;
+    private int userTotalActivities;
+    private ImageView waterBadge, waterStreak, outdoorBadge, outdoorStreak,
+        walkBadge, walkStreak, exerciseBadge, exerciseStreak, hikeBadge, hikeStreak;
 
 
     @Override
@@ -63,10 +75,33 @@ public class MyStuffActivity extends BaseActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        // Action bar
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle("Profile");
+        }
+
         // Bottom navigation draw
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         bottomNavigationView.setSelectedItemId(R.id.action_profile_navDraw);
+
+        // Badges
+        waterBadge = findViewById(R.id.waterBadge);
+        waterStreak = findViewById(R.id.waveStreakBadge);
+        outdoorBadge = findViewById(R.id.outdoorBadge);
+        outdoorStreak = findViewById(R.id.outdoorStreakBadge);
+        walkBadge = findViewById(R.id.walkBadge);
+        walkStreak = findViewById(R.id.walkStreakBadge);
+        exerciseBadge = findViewById(R.id.exerciseBadge);
+        exerciseStreak = findViewById(R.id.exerciseStreakBadge);
+        hikeBadge = findViewById(R.id.hikeBadge);
+        hikeStreak = findViewById(R.id.hikeStreakBadge);
+        ImageView[] badges = {waterBadge, waterStreak, outdoorBadge, outdoorStreak, walkBadge, walkStreak,
+                                exerciseBadge, exerciseStreak, hikeBadge, hikeStreak};
+        for (ImageView badge : badges) {
+            badge.setImageResource(R.drawable.lock); // Set all badges to locked
+        }
 
 
         // Posts ArrayList
@@ -86,7 +121,7 @@ public class MyStuffActivity extends BaseActivity {
         int itemId = item.getItemId();
 
         if (itemId == R.id.action_add) {
-            // Going to Add Journal Activity
+            // Going to New Post Activity
             if (user != null && firebaseAuth != null) {
                 startActivity(new Intent(
                         MyStuffActivity.this, NewPostActivity.class
@@ -104,8 +139,6 @@ public class MyStuffActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // Getting All Posts
-
 
     @Override
     protected void onStart() {
@@ -115,10 +148,13 @@ public class MyStuffActivity extends BaseActivity {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
+                // Getting All Posts
+
                 if (!queryDocumentSnapshots.isEmpty()){
-                    for (QueryDocumentSnapshot journals : queryDocumentSnapshots) {
-                        Post post = journals.toObject(Post.class);
+                    for (QueryDocumentSnapshot posts : queryDocumentSnapshots) {
+                        Post post = posts.toObject(Post.class);
                         postList.add(post);
+                        noPostText.setVisibility(View.INVISIBLE);
                     }
 
                     // Recycler View
@@ -131,6 +167,30 @@ public class MyStuffActivity extends BaseActivity {
                 } else{
                     noPostText.setVisibility(View.VISIBLE);
                 }
+
+                // Badge Unlock logic
+                userWaterActivities = User.getInstance().getWaterActivities();
+                userWalkActivities = User.getInstance().getWalkActivities();
+                userExerciseActivities = User.getInstance().getExerciseActivities();
+                userHikeActivities = User.getInstance().getHikeActivities();
+                userTotalActivities = User.getInstance().getTotalActivities();
+
+                if(userWaterActivities >= THRESHOLD_VALUE) {
+                    waterBadge.setImageResource(R.drawable.wave);
+                }
+                if(userWalkActivities >= THRESHOLD_VALUE) {
+                    walkBadge.setImageResource(R.drawable.walk);
+                }
+                if(userHikeActivities>= THRESHOLD_VALUE) {
+                    hikeBadge.setImageResource(R.drawable.hiking);
+                }
+                if(userExerciseActivities >= THRESHOLD_VALUE) {
+                    exerciseBadge.setImageResource(R.drawable.shoes);
+                }
+                if(userTotalActivities >= THRESHOLD_VALUE) {
+                    outdoorBadge.setImageResource(R.drawable.mountain);
+                }
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -159,10 +219,6 @@ public class MyStuffActivity extends BaseActivity {
             return true;
 
         } else if (itemID == R.id.action_profile_navDraw){
-
-//            i = new Intent(MyStuffActivity.this, MyStuffActivity.class);
-//            startActivity(i);
-            Toast.makeText(this, "Nav Bar Working", Toast.LENGTH_SHORT).show();
             return true;
 
         } else if (itemID == R.id.action_settings_navDraw){

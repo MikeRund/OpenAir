@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -61,6 +62,12 @@ public class SignUpActivity extends AppCompatActivity {
         emailSignUp = findViewById(R.id.emailSignUp);
         usernameET = findViewById(R.id.usernameET);
 
+        // Action bar
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle("Sign Up");
+        }
+
         // Authentication
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -104,32 +111,36 @@ public class SignUpActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
 
-                                // We take user to Next Activity: (AddJournal)
+                                // We take user to Next Activity: (NewPost)
                                 currentUser = firebaseAuth.getCurrentUser();
                                 assert currentUser != null;
                                 final String currentUserId = currentUser.getUid();
 
                                 // Create a userMap so we can create a user in the User Collection in Firestore
-                                Map<String, String> userObj = new HashMap<>();
+                                Map<String, Object> userObj = new HashMap<>();
                                 userObj.put("userId", currentUserId);
                                 userObj.put("username", username);
+                                userObj.put("waterActivities", 0);
+                                userObj.put("walkActivities", 0);
+                                userObj.put("hikeActivities", 0);
+                                userObj.put("totalActivities", 0);
 
                                 // Adding Users to Firestore
-                                collectionReference.add(userObj)
-                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                            @Override
-                                            public void onSuccess(DocumentReference documentReference) {
-                                                documentReference.get()
-                                                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                                            @Override
-                                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                                                if (Objects.requireNonNull(task.getResult().exists())){
-
+                                DocumentReference userDocument = collectionReference.document(currentUserId);
+                                userDocument.set(userObj).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        userDocument.get()
+                                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                        if (Objects.requireNonNull(task.getResult().exists())){
+//
                                                                     String name = task.getResult().getString("username");
 
-                                                                    // If user successfully registered, then move to JournalActivity
+                                                                    // If user successfully registered, then move to NewPostActivity
 
-                                                                    // Getting use of Global Journal USER
+                                                                    // Getting use of Global USER
                                                                     User user = User.getInstance();
                                                                     user.setUserId(currentUserId);
                                                                     user.setUsername(name);
@@ -139,17 +150,15 @@ public class SignUpActivity extends AppCompatActivity {
                                                                     i.putExtra("userId", currentUserId);
                                                                     startActivity(i);
                                                                 }
-                                                            }
-                                                        })
-                                                        .addOnFailureListener(new OnFailureListener() {
-                                                            @Override
-                                                            public void onFailure(@NonNull Exception e) {
-                                                                Toast.makeText(SignUpActivity.this, "Sign Up Failed", Toast.LENGTH_LONG).show();
-                                                            }
-                                                        })
-                                                ;
-                                            }
-                                        });
+                                                    }
+                                                }).addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Toast.makeText(SignUpActivity.this, "Sign Up Failed", Toast.LENGTH_LONG).show();
+                                                    }
+                                                });
+                                    }
+                                });
                             }
                         }
                     });

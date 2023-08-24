@@ -1,6 +1,7 @@
 package com.mastersproject.openair;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -19,6 +20,12 @@ public class SettingsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        // Action bar
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle("Settings");
+        }
 
         // Nav draw
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
@@ -51,10 +58,6 @@ public class SettingsActivity extends BaseActivity {
             return true;
 
         } else if (itemID == R.id.action_settings_navDraw){
-
-//            i = new Intent(SettingsActivity.this, SettingsActivity.class);
-//            startActivity(i);
-            Toast.makeText(this, "Nav Bar Working", Toast.LENGTH_SHORT).show();
             return true;
 
         } else {

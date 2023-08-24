@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,7 +39,7 @@ public class HomePostListActivity extends BaseActivity {
     private FirebaseAuth.AuthStateListener authStateListener;
     private FirebaseUser user;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference collectionReference = db.collection("Journal");
+    private CollectionReference collectionReference = db.collection("Post");
     private StorageReference storageReference;
     private List<Post> postList;
 
@@ -66,6 +67,12 @@ public class HomePostListActivity extends BaseActivity {
         // Posts ArrayList
         postList = new ArrayList<>();
 
+        // Action bar
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle("Home");
+        }
+
         // Nav draw
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
@@ -86,7 +93,7 @@ public class HomePostListActivity extends BaseActivity {
         int itemId = item.getItemId();
 
         if (itemId == R.id.action_add) {
-            // Going to Add Journal Activity
+            // Going to Add Post Activity
             if (user != null && firebaseAuth != null) {
                 startActivity(new Intent(
                         HomePostListActivity.this, NewPostActivity.class
@@ -110,15 +117,15 @@ public class HomePostListActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        collectionReference.whereEqualTo("userId", User.getInstance()
-                .getUserId()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        collectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
                 if (!queryDocumentSnapshots.isEmpty()){
-                    for (QueryDocumentSnapshot journals : queryDocumentSnapshots) {
-                        Post post = journals.toObject(Post.class);
+                    for (QueryDocumentSnapshot posts : queryDocumentSnapshots) {
+                        Post post = posts.toObject(Post.class);
                         postList.add(post);
+                        noPostText.setVisibility(View.INVISIBLE);
                     }
 
                     // Recycler View
@@ -147,10 +154,6 @@ public class HomePostListActivity extends BaseActivity {
         Intent i;
 
         if (itemID == R.id.action_home_navDraw){
-
-//            i = new Intent(HomePostListActivity.this, HomePostListActivity.class);
-//            startActivity(i);
-            Toast.makeText(this, "Nav Bar Working", Toast.LENGTH_SHORT).show();
             return true;
 
         } else if (itemID == R.id.action_add_navDraw){
