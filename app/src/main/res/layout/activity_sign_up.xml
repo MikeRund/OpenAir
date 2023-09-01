@@ -34,13 +34,13 @@
         app:layout_constraintTop_toBottomOf="@+id/textWelcomeSignUp" />
 
     <EditText
-        android:id="@+id/usernameET"
+        android:id="@+id/confirmPasswordET"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="24dp"
-        android:hint="Username"
+        android:hint="Confirm Password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordSignUp" />
@@ -66,6 +66,18 @@
         android:text="CREATE ACCOUNT"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usernameET" />
+        app:layout_constraintTop_toBottomOf="@+id/confirmPasswordET"
+        android:background="@color/black"/>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Already have account?"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/createBTN"
+        app:layout_constraintStart_toStartOf="@+id/createBTN"
+        app:layout_constraintTop_toBottomOf="@+id/createBTN" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

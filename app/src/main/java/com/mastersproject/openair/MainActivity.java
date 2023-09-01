@@ -20,12 +20,15 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.mastersproject.openair.util.User;
+import com.mastersproject.openair.util.UserDataCallback;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -37,9 +40,23 @@ public class MainActivity extends AppCompatActivity {
     // Firebase Authentication
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
-    private FirebaseUser currentUser;
+    private FirebaseUser user;
+
+    // User ID & Username
+    private String currentUserId;
+    private String currentUsername;
+
+    // Fetched user data from firestore
+    public static final String DEFAULT_PROFILE_URL = "https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg";
+    private String fetchedImageURL;
+    private long fetchedExerciseActivities;
+    private long fetchedWalkActivities;
+    private long fetchedHikeActivities;
+    private long fetchedWaterActivities;
+    private long fetchedTotalActivities;
 
     // Firebase Connection
+    private DocumentReference mUserRef;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference collectionReference = db.collection("Users");
 
@@ -62,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setTitle("Log In");
         }
+
 
         // Functionality
         signUpBTN.setOnClickListener(new View.OnClickListener() {
@@ -92,8 +110,12 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             FirebaseUser user = firebaseAuth.getCurrentUser();
+
+                            // Set currentUserId and Username to logged in instance
                             assert user != null;
-                            final String currentUserId = user.getUid();
+                            currentUserId = user.getUid();
+
+                           // final String currentUserId = user.getUid();
 
                             collectionReference.whereEqualTo("userId", currentUserId)
                                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -112,6 +134,22 @@ public class MainActivity extends AppCompatActivity {
                                                     user.setUsername(snapshot.getString("username"));
                                                     user.setUserId(snapshot.getString("userId"));
 
+//                                                    FetchUserData(new UserDataCallback() {
+//                                                        @Override
+//                                                        public void onUserDataFetched(String profileImageUrl, long exerciseActivities, long hikeActivities, long walkActivities, long waterActivities, long totalActivities) {
+//
+//                                                            // Updating User Singleton instance with User data from Firestore:
+////                                                            User.getInstance().setExerciseActivities(exerciseActivities);
+////                                                            User.getInstance().setHikeActivities(hikeActivities);
+////                                                            User.getInstance().setWalkActivities(walkActivities);
+////                                                            User.getInstance().setWaterActivities(waterActivities);
+////                                                            User.getInstance().setTotalActivities(totalActivities);
+////                                                            User.getInstance().setImageURL(fetchedImageURL);
+//
+//                                                            Toast.makeText(MainActivity.this, "Total Activities of User: " + fetchedTotalActivities, Toast.LENGTH_SHORT).show();
+//                                                        }
+//                                                    });
+
                                                     // Go to ListActivity after successful login
                                                     //startActivity(new Intent(MainActivity.this, AddJournalActivity.class));
                                                     startActivity(new Intent(MainActivity.this, HomePostListActivity.class));
@@ -129,5 +167,51 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Toast.makeText(MainActivity.this, "Please complete all text fields", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void FetchUserData(UserDataCallback callback) {
+        user = firebaseAuth.getCurrentUser();
+        firebaseAuth.addAuthStateListener(authStateListener);
+        mUserRef = db.collection("Users").document(currentUserId);
+
+        mUserRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot documentSnapshot = task.getResult();
+                    if (documentSnapshot.exists()){
+
+                        // Fetch the User data from the Users collection
+                        fetchedImageURL = documentSnapshot.getString("imageURL");
+                        fetchedExerciseActivities = (long) documentSnapshot.get("exerciseActivities");
+                        fetchedHikeActivities = (long) documentSnapshot.get("hikeActivities");
+                        fetchedWalkActivities = (long) documentSnapshot.get("walkActivities");
+                        fetchedWaterActivities = (long) documentSnapshot.get("waterActivities");
+                        fetchedTotalActivities = (long) documentSnapshot.get("totalActivities");
+
+                        if (fetchedImageURL == null) {
+                            fetchedImageURL = DEFAULT_PROFILE_URL;
+                        }
+                        Toast.makeText(MainActivity.this, "Total Activities of User: " + fetchedTotalActivities, Toast.LENGTH_SHORT).show();
+                        // Notify Callback with user data
+                        callback.onUserDataFetched(
+                                fetchedImageURL,
+                                fetchedExerciseActivities,
+                                fetchedHikeActivities,
+                                fetchedWalkActivities,
+                                fetchedWaterActivities,
+                                fetchedTotalActivities
+                        );
+                    } else {
+                        Toast.makeText(MainActivity.this, "No such document", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(MainActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

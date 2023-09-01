@@ -2,43 +2,21 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/AppTheme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@android:color/black"
     tools:context=".NewPostActivity">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/postIV"
-        app:menu="@menu/bottom_nav_menu" />
 
-    <ImageView
-        android:id="@+id/postIV"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="248dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/postDateTV" />
 
     <TextView
         android:id="@+id/postUsernameTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="55dp"
-        android:layout_marginBottom="21dp"
         android:text="Username"
+        android:textColor="@android:color/white"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/postDateTV"
-        app:layout_constraintEnd_toStartOf="@+id/postCameraBTN"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,45 +24,83 @@
         android:id="@+id/postDateTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="74dp"
-        android:layout_marginBottom="58dp"
-        android:text="Post Date "
+        android:text="Post Date"
+        android:textColor="@android:color/white"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/postIV"
-        app:layout_constraintEnd_toStartOf="@+id/postCameraBTN"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/postUsernameTV"
         app:layout_constraintTop_toBottomOf="@+id/postUsernameTV" />
+
+    <Spinner
+        android:id="@+id/activty_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toStartOf="@+id/activity_type_TV"
+        app:layout_constraintTop_toBottomOf="@+id/activity_type_TV" />
+
+    <TextView
+        android:id="@+id/activity_type_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Activity type:"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="32dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toTopOf="@+id/postIV"
+        app:layout_constraintEnd_toEndOf="@+id/activty_spinner"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/postDateTV" />
 
     <ImageView
         android:id="@+id/postCameraBTN"
-        android:layout_width="0dp"
+        android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginTop="37dp"
-        android:layout_marginEnd="165dp"
         android:src="@drawable/twotone_camera_alt_24"
+        app:layout_constraintBottom_toBottomOf="@+id/postIV"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/postDateTV"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/postIV"
+        app:layout_constraintTop_toTopOf="@+id/postIV" />
 
-    <EditText
-        android:id="@+id/postTitleET"
-        android:layout_width="411dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Post Title"
-        android:inputType="textPersonName"
+    <ImageView
+        android:id="@+id/postIV"
+        android:layout_width="419dp"
+        android:layout_height="341dp"
+        android:layout_marginBottom="52dp"
+        android:src="@drawable/hiking"
         app:layout_constraintBottom_toTopOf="@+id/postDescriptionET"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toTopOf="@+id/postDescriptionET"
+        app:layout_constraintTop_toBottomOf="@+id/postIV" />
+
 
     <EditText
         android:id="@+id/postDescriptionET"
-        android:layout_width="412dp"
+        style="@style/CustomEditText"
+        android:layout_width="411dp"
         android:layout_height="111dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="24dp"
         android:ems="10"
         android:hint="Post Description"
         android:inputType="textPersonName"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/postSaveBTN"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -95,10 +111,21 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:text="Save Post"
-        android:textColor="@color/black"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="411dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/black"
+        app:itemIconTint="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
 
     <ProgressBar
         android:id="@+id/postProgressBar"
@@ -106,28 +133,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="77dp"
-        app:layout_constraintBottom_toBottomOf="@+id/postIV"
+        app:layout_constraintBottom_toBottomOf="@id/postIV"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
-    <TextView
-        android:id="@+id/activity_type_TV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="14dp"
-        android:text="Activity type:"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/activty_spinner"
-        app:layout_constraintEnd_toEndOf="@+id/activty_spinner" />
-
-    <Spinner
-        android:id="@+id/activty_spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="17dp"
-        app:layout_constraintBottom_toBottomOf="@+id/postCameraBTN"
-        app:layout_constraintStart_toEndOf="@+id/postCameraBTN" />
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/postIV" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

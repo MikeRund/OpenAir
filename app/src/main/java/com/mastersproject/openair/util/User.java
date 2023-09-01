@@ -6,12 +6,16 @@ public class User extends Application {
 
     private String username;
     private String userId;
-    private int waterActivities;
-    private int walkActivities;
-    private int exerciseActivities;
-    private int hikeActivities;
-    private int currentStreak;
-    private int totalActivities;
+    private String imageURL;
+    private String description;
+
+
+    private long waterActivities;
+    private long walkActivities;
+    private long exerciseActivities;
+    private long hikeActivities;
+    private long currentStreak;
+    private long totalActivities;
 
     private static User instance;
 
@@ -43,51 +47,51 @@ public class User extends Application {
         this.userId = userId;
     }
 
-    public int getWaterActivities() {
+    public long getWaterActivities() {
         return waterActivities;
     }
 
-    public void setWaterActivities(int waterActivities) {
+    public void setWaterActivities(long waterActivities) {
         this.waterActivities = waterActivities;
     }
 
-    public int getWalkActivities() {
+    public long getWalkActivities() {
         return walkActivities;
     }
 
-    public void setWalkActivities(int walkActivities) {
+    public void setWalkActivities(long walkActivities) {
         this.walkActivities = walkActivities;
     }
 
-    public int getExerciseActivities() {
+    public long getExerciseActivities() {
         return exerciseActivities;
     }
 
-    public void setExerciseActivities(int exerciseActivities) {
+    public void setExerciseActivities(long exerciseActivities) {
         this.exerciseActivities = exerciseActivities;
     }
 
-    public int getHikeActivities() {
+    public long getHikeActivities() {
         return hikeActivities;
     }
 
-    public void setHikeActivities(int hikeActivities) {
+    public void setHikeActivities(long hikeActivities) {
         this.hikeActivities = hikeActivities;
     }
 
-    public int getCurrentStreak() {
+    public long getCurrentStreak() {
         return currentStreak;
     }
 
-    public void setCurrentStreak(int currentStreak) {
+    public void setCurrentStreak(long currentStreak) {
         this.currentStreak = currentStreak;
     }
 
-    public int getTotalActivities() {
+    public long getTotalActivities() {
         return totalActivities;
     }
 
-    public void setTotalActivities(int totalActivities) {
+    public void setTotalActivities(long totalActivities) {
         this.totalActivities = totalActivities;
     }
 
@@ -113,5 +117,26 @@ public class User extends Application {
 
     public static void setInstance(User instance) {
         User.instance = instance;
+    }
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public static synchronized void initializeInstance(String userId, String username) {
+        instance = getInstance();
+        instance.setUserId(userId);
+        instance.setUsername(username);
     }
 }

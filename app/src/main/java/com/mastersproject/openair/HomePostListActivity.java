@@ -61,7 +61,7 @@ public class HomePostListActivity extends BaseActivity {
         // Widgets
         noPostText = findViewById(R.id.listNoPosts);
         recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Posts ArrayList
@@ -92,11 +92,11 @@ public class HomePostListActivity extends BaseActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
 
-        if (itemId == R.id.action_add) {
+        if (itemId == R.id.action_edit_profile) {
             // Going to Add Post Activity
             if (user != null && firebaseAuth != null) {
                 startActivity(new Intent(
-                        HomePostListActivity.this, NewPostActivity.class
+                        HomePostListActivity.this, EditProfileActivity.class
                 ));
             }
         } else if (itemId == R.id.action_sign_out) {
