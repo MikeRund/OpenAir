@@ -288,11 +288,11 @@ public class SettingsActivity extends BaseActivity {
         } else if (itemID == R.id.action_profile_navDraw){
             return true;
 
-        } else if (itemID == R.id.action_settings_navDraw){
-
-            i = new Intent(SettingsActivity.this, SettingsActivity.class);
-            startActivity(i);
-            return true;
+//        } else if (itemID == R.id.action_settings_navDraw){
+//
+//            i = new Intent(SettingsActivity.this, SettingsActivity.class);
+//            startActivity(i);
+//            return true;
 
         } else {
             return false;

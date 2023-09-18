@@ -36,6 +36,7 @@ import com.mastersproject.openair.util.User;
 import com.mastersproject.openair.util.UserDataCallback;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -114,17 +115,16 @@ public class MyStuffActivity extends BaseActivity {
 
         // Badges
         waterBadge = findViewById(R.id.waterBadge);
-        waterStreak = findViewById(R.id.waveStreakBadge);
+//        waterStreak = findViewById(R.id.waveStreakBadge);
         outdoorBadge = findViewById(R.id.outdoorBadge);
-        outdoorStreak = findViewById(R.id.outdoorStreakBadge);
+//        outdoorStreak = findViewById(R.id.outdoorStreakBadge);
         walkBadge = findViewById(R.id.walkBadge);
-        walkStreak = findViewById(R.id.walkStreakBadge);
+//        walkStreak = findViewById(R.id.walkStreakBadge);
         exerciseBadge = findViewById(R.id.exerciseBadge);
-        exerciseStreak = findViewById(R.id.exerciseStreakBadge);
+//        exerciseStreak = findViewById(R.id.exerciseStreakBadge);
         hikeBadge = findViewById(R.id.hikeBadge);
-        hikeStreak = findViewById(R.id.hikeStreakBadge);
-        ImageView[] badges = {waterBadge, waterStreak, outdoorBadge, outdoorStreak, walkBadge, walkStreak,
-                                exerciseBadge, exerciseStreak, hikeBadge, hikeStreak};
+//        hikeStreak = findViewById(R.id.hikeStreakBadge);
+        ImageView[] badges = {waterBadge, outdoorBadge, walkBadge, exerciseBadge, hikeBadge};
         for (ImageView badge : badges) {
             badge.setImageResource(R.drawable.lock); // Set all badges to locked
         }
@@ -224,6 +224,8 @@ public class MyStuffActivity extends BaseActivity {
                         noPostText.setVisibility(View.INVISIBLE);
                     }
 
+                    Collections.reverse(postList);
+
                     // Recycler View
                     postRecyclerViewAdapter = new PostRecyclerViewAdapter(
                             MyStuffActivity.this, postList
@@ -288,11 +290,11 @@ public class MyStuffActivity extends BaseActivity {
         } else if (itemID == R.id.action_profile_navDraw){
             return true;
 
-        } else if (itemID == R.id.action_settings_navDraw){
-
-            i = new Intent(MyStuffActivity.this, SettingsActivity.class);
-            startActivity(i);
-            return true;
+//        } else if (itemID == R.id.action_settings_navDraw){
+//
+//            i = new Intent(MyStuffActivity.this, SettingsActivity.class);
+//            startActivity(i);
+//            return true;
 
         } else {
             return false;

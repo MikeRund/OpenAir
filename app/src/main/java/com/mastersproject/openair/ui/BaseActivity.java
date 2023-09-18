@@ -52,11 +52,11 @@ public abstract class BaseActivity extends AppCompatActivity
             startActivity(i);
             return true;
 
-        } else if (itemID == R.id.action_settings_navDraw){
-
-            i = new Intent(this, SettingsActivity.class);
-            startActivity(i);
-            return true;
+//        } else if (itemID == R.id.action_settings_navDraw){
+//
+//            i = new Intent(this, SettingsActivity.class);
+//            startActivity(i);
+//            return true;
 
         } else {
             return false;

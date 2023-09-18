@@ -16,9 +16,11 @@
         android:id="@+id/action_profile_navDraw"
         android:title="My Stuff"
         android:icon="@drawable/person_outline"/>
+    <!--
     <item
         android:id="@+id/action_settings_navDraw"
         android:title="Settings"
         android:icon="@drawable/settings_outline"/>
+        -->
 
 </menu>

@@ -500,11 +500,11 @@ public class NewPostActivity extends BaseActivity {
             startActivity(i);
             return true;
 
-        } else if (itemID == R.id.action_settings_navDraw){
-
-            i = new Intent(NewPostActivity.this, SettingsActivity.class);
-            startActivity(i);
-            return true;
+//        } else if (itemID == R.id.action_settings_navDraw){
+//
+//            i = new Intent(NewPostActivity.this, SettingsActivity.class);
+//            startActivity(i);
+//            return true;
 
         } else {
             return false;
