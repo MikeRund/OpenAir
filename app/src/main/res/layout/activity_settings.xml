@@ -4,7 +4,195 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingsActivity">
+    tools:context=".SettingsActivity"
+    android:background="@color/white">
+
+    <!-- Badge Layout -->
+
+
+    <LinearLayout
+        android:id="@+id/badgeLayoutTop"
+        android:layout_width="406dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewMyStuff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.179">
+
+        <ImageView
+            android:id="@+id/outdoorBadge"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/mountain" />
+
+        <ImageView
+            android:id="@+id/walkBadge"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/walk" />
+
+        <ImageView
+            android:id="@+id/waterBadge"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/wave" />
+
+        <ImageView
+            android:id="@+id/exerciseBadge"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/shoes" />
+
+        <ImageView
+            android:id="@+id/hikeBadge"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/hiking" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/badgeLayoutBottom"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_width="406dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewMyStuff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/badgeLayoutTop"
+        app:layout_constraintVertical_bias="0.0">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <!-- Make the main badge image slightly paler -->
+            <ImageView
+                android:id="@+id/outdoorStreakBadge"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="10dp"
+                android:src="@drawable/mountain"
+                android:alpha="0.6" /> <!-- Adjust alpha for paler appearance -->
+
+            <!-- Position the flame image with some overlap -->
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="bottom|end"
+                android:layout_marginEnd="-2dp"
+                android:layout_marginBottom="2dp"
+                android:src="@drawable/fire" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <!-- Make the main badge image slightly paler -->
+            <ImageView
+                android:id="@+id/walkStreakBadge"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="10dp"
+                android:src="@drawable/walk"
+                android:alpha="0.6" /> <!-- Adjust alpha for paler appearance -->
+
+            <!-- Position the flame image with some overlap -->
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="bottom|end"
+                android:layout_marginEnd="-2dp"
+                android:layout_marginBottom="2dp"
+                android:src="@drawable/fire" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <!-- Make the main badge image slightly paler -->
+            <ImageView
+                android:id="@+id/waveStreakBadge"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="10dp"
+                android:src="@drawable/wave"
+                android:alpha="0.6" /> <!-- Adjust alpha for paler appearance -->
+
+            <!-- Position the flame image with some overlap -->
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="bottom|end"
+                android:layout_marginEnd="-2dp"
+                android:layout_marginBottom="2dp"
+                android:src="@drawable/fire" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <!-- Make the main badge image slightly paler -->
+            <ImageView
+                android:id="@+id/exerciseStreakBadge"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="10dp"
+                android:src="@drawable/shoes"
+                android:alpha="0.6" /> <!-- Adjust alpha for paler appearance -->
+
+            <!-- Position the flame image with some overlap -->
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="bottom|end"
+                android:layout_marginEnd="-2dp"
+                android:layout_marginBottom="2dp"
+                android:src="@drawable/fire" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <!-- Make the main badge image slightly paler -->
+            <ImageView
+                android:id="@+id/hikeStreakBadge"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="10dp"
+                android:src="@drawable/hiking"
+                android:alpha="0.6" /> <!-- Adjust alpha for paler appearance -->
+
+            <!-- Position the flame image with some overlap -->
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="bottom|end"
+                android:layout_marginEnd="-2dp"
+                android:layout_marginBottom="2dp"
+                android:src="@drawable/fire" />
+
+        </FrameLayout>
+
+    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
@@ -14,5 +202,25 @@
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"
         app:menu="@menu/bottom_nav_menu" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewMyStuff"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="6dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/badgeLayoutBottom" />
+
+    <TextView
+        android:id="@+id/listNoPostsMyStuff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No Posts"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerViewMyStuff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

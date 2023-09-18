@@ -123,6 +123,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 userObj.put("waterActivities", 0);
                                 userObj.put("walkActivities", 0);
                                 userObj.put("hikeActivities", 0);
+                                userObj.put("exerciseActivities", 0);
                                 userObj.put("totalActivities", 0);
 
                                 // Adding Users to Firestore

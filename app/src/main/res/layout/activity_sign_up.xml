@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/light_grey"
     tools:context=".SignUpActivity">
 
     <TextView
@@ -34,13 +34,13 @@
         app:layout_constraintTop_toBottomOf="@+id/textWelcomeSignUp" />
 
     <EditText
-        android:id="@+id/confirmPasswordET"
+        android:id="@+id/usernameET"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="24dp"
-        android:hint="Confirm Password"
+        android:hint="Username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordSignUp" />
@@ -66,7 +66,7 @@
         android:text="CREATE ACCOUNT"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/confirmPasswordET"
+        app:layout_constraintTop_toBottomOf="@+id/usernameET"
         android:background="@color/black"/>
 
     <TextView

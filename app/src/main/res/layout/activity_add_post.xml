@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/black"
+    android:padding="16dp"
     tools:context=".NewPostActivity">
 
 
@@ -52,29 +53,31 @@
         android:id="@+id/line1"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginTop="20dp"
         android:background="@android:color/darker_gray"
-        app:layout_constraintBottom_toTopOf="@+id/postIV"
         app:layout_constraintEnd_toEndOf="@+id/activty_spinner"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/postDateTV" />
+        app:layout_constraintStart_toStartOf="@+id/postDateTV"
+        app:layout_constraintTop_toBottomOf="@+id/postDateTV" />
 
     <ImageView
         android:id="@+id/postCameraBTN"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:background="@color/light_grey"
         android:src="@drawable/twotone_camera_alt_24"
         app:layout_constraintBottom_toBottomOf="@+id/postIV"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.463"
         app:layout_constraintStart_toStartOf="@+id/postIV"
-        app:layout_constraintTop_toTopOf="@+id/postIV" />
+        app:layout_constraintTop_toTopOf="@+id/postIV"
+        app:layout_constraintVertical_bias="0.52" />
 
     <ImageView
         android:id="@+id/postIV"
-        android:layout_width="419dp"
-        android:layout_height="341dp"
+        android:layout_width="match_parent"
+        android:layout_height="306dp"
         android:layout_marginBottom="52dp"
-        android:src="@drawable/hiking"
         app:layout_constraintBottom_toTopOf="@+id/postDescriptionET"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -92,10 +95,10 @@
     <EditText
         android:id="@+id/postDescriptionET"
         style="@style/CustomEditText"
-        android:layout_width="411dp"
+        android:layout_width="match_parent"
         android:layout_height="111dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
         android:layout_marginBottom="24dp"
         android:ems="10"
         android:hint="Post Description"
@@ -135,7 +138,9 @@
         android:layout_marginBottom="77dp"
         app:layout_constraintBottom_toBottomOf="@id/postIV"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/postIV" />
+        app:layout_constraintTop_toTopOf="@id/postIV"
+        app:layout_constraintVertical_bias="0.717" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,14 +10,18 @@
     <ImageView
         android:id="@+id/postIV"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider4"
-         />
+        app:layout_constraintDimensionRatio="3:4"
+        android:scaleType="centerCrop"/>
+    <!-- This line sets the aspect ratio to 3:4 -->
+
+
 
     <TextView
         android:id="@+id/descriptionTextView"
@@ -35,6 +39,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/postIV" />
 
+    <!--
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
@@ -42,8 +47,8 @@
         android:layout_below="@+id/descriptionTextView"
         android:layout_marginTop="6dp"
         android:background="@color/light_grey" />
-
-
+-->
+    <!--
     <EditText
         android:id="@+id/commentET"
         android:layout_width="match_parent"
@@ -58,8 +63,9 @@
         android:textColorHint="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/bottomGuideline"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" /> -->
 
+    <!--
     <ImageView
         android:id="@+id/sendIV"
         android:layout_width="wrap_content"
@@ -71,21 +77,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/commentET"
         app:srcCompat="@android:drawable/ic_menu_send" />
+        -->
 
-    <View
-        android:id="@+id/divider3"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
+<!--    <View-->
+<!--        android:id="@+id/divider3"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="1dp"-->
 
-        android:layout_marginBottom="-10dp"
-        android:background="@color/light_grey" />
+<!--        android:layout_marginBottom="-10dp"-->
+<!--        android:background="@color/light_grey" /> -->
 
     <View
         android:id="@+id/divider2"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="5dp"
-        android:background="@color/light_grey"
+        android:background="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -102,37 +109,36 @@
 
     <TextView
         android:id="@+id/usernameTV"
-        android:layout_width="347dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
         android:text="Username"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/profileIV"
-        app:layout_constraintTop_toBottomOf="@+id/divider" />
+        app:layout_constraintTop_toTopOf="@+id/profileIV" />
 
     <TextView
         android:id="@+id/dateTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="24dp"
         android:text="date"
         android:textColor="@color/white"
+        android:textSize="20dp"
         app:layout_constraintStart_toEndOf="@+id/activityTV"
-        app:layout_constraintTop_toBottomOf="@+id/usernameTV" />
+        app:layout_constraintTop_toTopOf="@+id/activityTV" />
 
     <TextView
         android:id="@+id/activityTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-
+        android:layout_marginTop="12dp"
         android:text="Activity Type"
         android:textColor="@color/white"
-        app:layout_constraintStart_toEndOf="@+id/profileIV"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="@+id/usernameTV"
         app:layout_constraintTop_toBottomOf="@+id/usernameTV" />
 
     <View

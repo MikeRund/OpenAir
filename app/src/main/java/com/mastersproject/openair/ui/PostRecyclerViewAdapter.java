@@ -96,8 +96,8 @@ public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerVi
             activityType = itemView.findViewById(R.id.activityTV);
             postImage = itemView.findViewById(R.id.postIV);
             profileImage = itemView.findViewById(R.id.profileIV);
-            sendImage = itemView.findViewById(R.id.sendIV);
-            commentBar = itemView.findViewById(R.id.commentET);
+//            sendImage = itemView.findViewById(R.id.sendIV);
+//            commentBar = itemView.findViewById(R.id.commentET);
         }
     }
 }
