@@ -171,12 +171,6 @@ public class HomePostListActivity extends BaseActivity {
             startActivity(i);
             return true;
 
-//        } else if (itemID == R.id.action_settings_navDraw){
-//
-//            i = new Intent(HomePostListActivity.this, SettingsActivity.class);
-//            startActivity(i);
-//            return true;
-
         } else {
             return false;
         }

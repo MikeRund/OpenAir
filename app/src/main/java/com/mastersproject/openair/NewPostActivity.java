@@ -134,9 +134,6 @@ public class NewPostActivity extends BaseActivity {
             currentUserTextView.setText(currentUsername);
         }
 
-        // Initialize User singleton instance with user data
-//        User.initializeInstance(currentUserId, currentUsername);
-
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -266,75 +263,6 @@ public class NewPostActivity extends BaseActivity {
 
                                         }
                                     });
-                                    // Creating object of Post
-//                                    Post post = new Post();
-//
-//                                    post.setUsername(currentUsername);
-//                                    post.setDescription(description);
-//                                    post.setActivityType(selectedActivity);
-//                                    post.setTimestamp(new Timestamp(new Date()));
-//                                    post.setUserId(currentUserId);
-//                                    post.setPostImageURL(imageUrl);
-//                                    post.setProfileImageURL(fetchedImageURL);
-//
-//                                    Toast.makeText(NewPostActivity.this, "Profile Image Ulr: " + fetchedImageURL, Toast.LENGTH_SHORT).show();
-//                                    System.out.println("Profile Image ULR: " + fetchedImageURL);
-
-
-//                                    Post post = new Post();
-//                                    post.setTitle(title);
-//                                    post.setDescription(description);
-//                                    post.setImageUrl(imageUrl);
-//                                    post.setTimestamp(new Timestamp(new Date()));
-//                                    post.setUsername(currentUsername);
-//                                    post.setUserId(currentUserId);
-
-//                                    // Checking Activity Type
-//                                    isWaterActivity = selectedActivity.equals("Surf") || selectedActivity.equals("Swim")
-//                                            || selectedActivity.equals("General Water Activity");
-//
-//                                    isExerciseActivity = selectedActivity.equals("Run") || selectedActivity.equals("Workout")
-//                                            || selectedActivity.equals("Sport");
-//
-//                                    isHikeActivity = selectedActivity.equals("Hike");
-//
-//                                    isWalkActivity = selectedActivity.equals("Walk");
-//
-//                                    // Incrementing Activity Types
-//                                    if (isWaterActivity) {
-//                                        User.getInstance().incrementWaterActivities();
-//                                        User.getInstance().incrementTotalActivities();
-//                                    } else if (isWalkActivity) {
-//                                        User.getInstance().incrementWalkActivities();
-//                                        User.getInstance().incrementTotalActivities();
-//                                    } else if (isHikeActivity) {
-//                                        User.getInstance().incrementHikeActivities();
-//                                        User.getInstance().incrementTotalActivities();
-//                                    } else if (isExerciseActivity) {
-//                                        User.getInstance().incrementExerciseActivities();
-//                                        User.getInstance().incrementTotalActivities();
-//                                    } else {
-//                                        User.getInstance().incrementTotalActivities();
-//                                    }
-
-
-//                                    // Invoking Collection Reference
-//                                    collectionReference.add(post)
-//                                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                                                @Override
-//                                                public void onSuccess(DocumentReference documentReference) {
-//                                                    updateUserFirestoreData();
-//                                                    progressBar.setVisibility(View.INVISIBLE);
-//                                                    startActivity(new Intent(NewPostActivity.this, HomePostListActivity.class));
-//                                                    finish();
-//                                                }
-//                                            }).addOnFailureListener(new OnFailureListener() {
-//                                                @Override
-//                                                public void onFailure(@NonNull Exception e) {
-//                                                    Toast.makeText(NewPostActivity.this, "ERROR: " + e.getMessage(), Toast.LENGTH_LONG).show();
-//                                                }
-//                                            });
-
                                 }
                             });
                         }
@@ -368,7 +296,7 @@ public class NewPostActivity extends BaseActivity {
                         if (fetchedImageURL == null) {
                             fetchedImageURL = DEFAULT_PROFILE_URL;
                         }
-                        Toast.makeText(NewPostActivity.this, "Url: " + fetchedImageURL, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(NewPostActivity.this, "Url: " + fetchedImageURL, Toast.LENGTH_SHORT).show();
                         callback.onImageFetched(fetchedImageURL); // Notify Callback
                     } else {
                         Toast.makeText(NewPostActivity.this, "No such document", Toast.LENGTH_SHORT).show();
@@ -406,7 +334,7 @@ public class NewPostActivity extends BaseActivity {
                         if (fetchedImageURL == null) {
                             fetchedImageURL = DEFAULT_PROFILE_URL;
                         }
-                        Toast.makeText(NewPostActivity.this, "Total Activities of User: " + fetchedTotalActivities, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(NewPostActivity.this, "Total Activities of User: " + fetchedTotalActivities, Toast.LENGTH_SHORT).show();
                         // Notify Callback with user data
                         callback.onUserDataFetched(
                                 fetchedImageURL,

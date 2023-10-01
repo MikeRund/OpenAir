@@ -71,14 +71,17 @@ public class MyStuffActivity extends BaseActivity {
     private long fetchedTotalActivities;
 
     // Badges
-    final private int THRESHOLD_VALUE = 2;
+    final private int TOTAL_THRESHOLD_VALUE = 10;
+    final private int WATER_THRESHOLD_VALUE = 3;
+    final private int WALK_THRESHOLD_VALUE = 5;
+    final private int EXERCISE_THRESHOLD_VALUE = 2;
+    final private int HIKE_THRESHOLD_VALUE = 1;
     private long userWaterActivities;
     private long userWalkActivities;
     private long userHikeActivities;
     private long userExerciseActivities;
     private long userTotalActivities;
-    private ImageView waterBadge, waterStreak, outdoorBadge, outdoorStreak,
-        walkBadge, walkStreak, exerciseBadge, exerciseStreak, hikeBadge, hikeStreak;
+    private ImageView waterBadge, outdoorBadge, walkBadge, exerciseBadge, hikeBadge;
 
 
     @Override
@@ -115,20 +118,26 @@ public class MyStuffActivity extends BaseActivity {
 
         // Badges
         waterBadge = findViewById(R.id.waterBadge);
-//        waterStreak = findViewById(R.id.waveStreakBadge);
         outdoorBadge = findViewById(R.id.outdoorBadge);
-//        outdoorStreak = findViewById(R.id.outdoorStreakBadge);
         walkBadge = findViewById(R.id.walkBadge);
-//        walkStreak = findViewById(R.id.walkStreakBadge);
         exerciseBadge = findViewById(R.id.exerciseBadge);
-//        exerciseStreak = findViewById(R.id.exerciseStreakBadge);
         hikeBadge = findViewById(R.id.hikeBadge);
-//        hikeStreak = findViewById(R.id.hikeStreakBadge);
         ImageView[] badges = {waterBadge, outdoorBadge, walkBadge, exerciseBadge, hikeBadge};
         for (ImageView badge : badges) {
             badge.setImageResource(R.drawable.lock); // Set all badges to locked
         }
 
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+
+                } else {
+
+                }
+            }
+        };
 
         // Posts ArrayList
         postList = new ArrayList<>();
@@ -171,40 +180,40 @@ public class MyStuffActivity extends BaseActivity {
         super.onStart();
 
         // Fetch user data and set User singleton fields
-//        FetchUserData(new UserDataCallback() {
-//            @Override
-//            public void onUserDataFetched(String profileImageUrl, long exerciseActivities, long hikeActivities, long walkActivities, long waterActivities, long totalActivities) {
-//                User.getInstance().setImageURL(profileImageUrl);
-//                User.getInstance().setExerciseActivities(exerciseActivities);
-//                User.getInstance().setHikeActivities(hikeActivities);
-//                User.getInstance().setWalkActivities(walkActivities);
-//                User.getInstance().setWaterActivities(waterActivities);
-//                User.getInstance().setTotalActivities(totalActivities);
-//
-//                // Continue with your badge unlocking logic here
-//                userWaterActivities = User.getInstance().getWaterActivities();
-//                userWalkActivities = User.getInstance().getWalkActivities();
-//                userExerciseActivities = User.getInstance().getExerciseActivities();
-//                userHikeActivities = User.getInstance().getHikeActivities();
-//                userTotalActivities = User.getInstance().getTotalActivities();
-//
-//                if (userWaterActivities >= THRESHOLD_VALUE) {
-//                    waterBadge.setImageResource(R.drawable.wave);
-//                }
-//                if (userWalkActivities >= THRESHOLD_VALUE) {
-//                    walkBadge.setImageResource(R.drawable.walk);
-//                }
-//                if (userHikeActivities >= THRESHOLD_VALUE) {
-//                    hikeBadge.setImageResource(R.drawable.hiking);
-//                }
-//                if (userExerciseActivities >= THRESHOLD_VALUE) {
-//                    exerciseBadge.setImageResource(R.drawable.shoes);
-//                }
-//                if (userTotalActivities >= THRESHOLD_VALUE) {
-//                    outdoorBadge.setImageResource(R.drawable.mountain);
-//                }
-//            }
-//        });
+        FetchUserData(new UserDataCallback() {
+            @Override
+            public void onUserDataFetched(String profileImageUrl, long exerciseActivities, long hikeActivities, long walkActivities, long waterActivities, long totalActivities) {
+                User.getInstance().setImageURL(profileImageUrl);
+                User.getInstance().setExerciseActivities(exerciseActivities);
+                User.getInstance().setHikeActivities(hikeActivities);
+                User.getInstance().setWalkActivities(walkActivities);
+                User.getInstance().setWaterActivities(waterActivities);
+                User.getInstance().setTotalActivities(totalActivities);
+
+                // Badge unlocking logic
+                userWaterActivities = User.getInstance().getWaterActivities();
+                userWalkActivities = User.getInstance().getWalkActivities();
+                userExerciseActivities = User.getInstance().getExerciseActivities();
+                userHikeActivities = User.getInstance().getHikeActivities();
+                userTotalActivities = User.getInstance().getTotalActivities();
+
+                if (userWaterActivities >= WATER_THRESHOLD_VALUE) {
+                    waterBadge.setImageResource(R.drawable.wave);
+                }
+                if (userWalkActivities >= WALK_THRESHOLD_VALUE) {
+                    walkBadge.setImageResource(R.drawable.walk);
+                }
+                if (userHikeActivities >= HIKE_THRESHOLD_VALUE) {
+                    hikeBadge.setImageResource(R.drawable.hiking);
+                }
+                if (userExerciseActivities >= EXERCISE_THRESHOLD_VALUE) {
+                    exerciseBadge.setImageResource(R.drawable.shoes);
+                }
+                if (userTotalActivities >= TOTAL_THRESHOLD_VALUE) {
+                    outdoorBadge.setImageResource(R.drawable.mountain);
+                }
+            }
+        });
 
 
         // Set the currentUserId
@@ -236,31 +245,7 @@ public class MyStuffActivity extends BaseActivity {
                 } else{
                     noPostText.setVisibility(View.VISIBLE);
                 }
-
-                // Badge Unlock logic
-                userWaterActivities = User.getInstance().getWaterActivities();
-                userWalkActivities = User.getInstance().getWalkActivities();
-                userExerciseActivities = User.getInstance().getExerciseActivities();
-                userHikeActivities = User.getInstance().getHikeActivities();
-                userTotalActivities = User.getInstance().getTotalActivities();
-
-                if(userWaterActivities >= THRESHOLD_VALUE) {
-                    waterBadge.setImageResource(R.drawable.wave);
-                }
-                if(userWalkActivities >= THRESHOLD_VALUE) {
-                    walkBadge.setImageResource(R.drawable.walk);
-                }
-                if(userHikeActivities>= THRESHOLD_VALUE) {
-                    hikeBadge.setImageResource(R.drawable.hiking);
-                }
-                if(userExerciseActivities >= THRESHOLD_VALUE) {
-                    exerciseBadge.setImageResource(R.drawable.shoes);
-                }
-                if(userTotalActivities >= THRESHOLD_VALUE) {
-                    outdoorBadge.setImageResource(R.drawable.mountain);
-                }
-
-            }
+                            }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
@@ -290,12 +275,6 @@ public class MyStuffActivity extends BaseActivity {
         } else if (itemID == R.id.action_profile_navDraw){
             return true;
 
-//        } else if (itemID == R.id.action_settings_navDraw){
-//
-//            i = new Intent(MyStuffActivity.this, SettingsActivity.class);
-//            startActivity(i);
-//            return true;
-
         } else {
             return false;
         }
@@ -324,7 +303,7 @@ public class MyStuffActivity extends BaseActivity {
                         if (fetchedImageURL == null) {
                             fetchedImageURL = DEFAULT_PROFILE_URL;
                         }
-                        Toast.makeText(MyStuffActivity.this, "Total Activities of User: " + fetchedTotalActivities, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MyStuffActivity.this, "Total Activities of User: " + fetchedTotalActivities, Toast.LENGTH_SHORT).show();
                         // Notify Callback with user data
                         callback.onUserDataFetched(
                                 fetchedImageURL,

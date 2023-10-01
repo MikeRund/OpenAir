@@ -134,24 +134,6 @@ public class MainActivity extends AppCompatActivity {
                                                     user.setUsername(snapshot.getString("username"));
                                                     user.setUserId(snapshot.getString("userId"));
 
-//                                                    FetchUserData(new UserDataCallback() {
-//                                                        @Override
-//                                                        public void onUserDataFetched(String profileImageUrl, long exerciseActivities, long hikeActivities, long walkActivities, long waterActivities, long totalActivities) {
-//
-//                                                            // Updating User Singleton instance with User data from Firestore:
-////                                                            User.getInstance().setExerciseActivities(exerciseActivities);
-////                                                            User.getInstance().setHikeActivities(hikeActivities);
-////                                                            User.getInstance().setWalkActivities(walkActivities);
-////                                                            User.getInstance().setWaterActivities(waterActivities);
-////                                                            User.getInstance().setTotalActivities(totalActivities);
-////                                                            User.getInstance().setImageURL(fetchedImageURL);
-//
-//                                                            Toast.makeText(MainActivity.this, "Total Activities of User: " + fetchedTotalActivities, Toast.LENGTH_SHORT).show();
-//                                                        }
-//                                                    });
-
-                                                    // Go to ListActivity after successful login
-                                                    //startActivity(new Intent(MainActivity.this, AddJournalActivity.class));
                                                     startActivity(new Intent(MainActivity.this, HomePostListActivity.class));
                                                 }
                                             }

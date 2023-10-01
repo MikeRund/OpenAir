@@ -1,6 +1,5 @@
 package com.mastersproject.openair.ui;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -13,7 +12,6 @@ import com.mastersproject.openair.HomePostListActivity;
 import com.mastersproject.openair.MyStuffActivity;
 import com.mastersproject.openair.NewPostActivity;
 import com.mastersproject.openair.R;
-import com.mastersproject.openair.SettingsActivity;
 
 public abstract class BaseActivity extends AppCompatActivity
     implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -51,12 +49,6 @@ public abstract class BaseActivity extends AppCompatActivity
             i = new Intent(this, MyStuffActivity.class);
             startActivity(i);
             return true;
-
-//        } else if (itemID == R.id.action_settings_navDraw){
-//
-//            i = new Intent(this, SettingsActivity.class);
-//            startActivity(i);
-//            return true;
 
         } else {
             return false;

@@ -35,7 +35,6 @@ public class SignUpActivity extends AppCompatActivity {
     // Widgets
     private EditText passwordSignUp, emailSignUp, usernameET;
     private Button createBTN;
-    //private AutoCompleteTextView emailSignUp;
 
     // Firebase Authentication
     private FirebaseAuth firebaseAuth;

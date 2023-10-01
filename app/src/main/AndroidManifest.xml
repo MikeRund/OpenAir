@@ -20,9 +20,6 @@
             android:name=".EditProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".SettingsActivity"
-            android:exported="false" />
-        <activity
             android:name=".HomePostListActivity"
             android:exported="false" />
         <activity

@@ -91,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="16dp"
-                android:text="Post an activity type 3 times to unlock the corresponding badge!!\n(Note: In order to see your badges you must post an activity on this session)"
+                android:text="Post enough activites to unlock a badge! Try and get them all!!"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -113,12 +113,12 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewMyStuff"
-        android:layout_width="397dp"
-        android:layout_height="426dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:background="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/textLayout"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView

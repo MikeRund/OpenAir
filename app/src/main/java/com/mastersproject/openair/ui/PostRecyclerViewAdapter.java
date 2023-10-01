@@ -89,15 +89,13 @@ public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerVi
             super(itemView);
             context = ctx;
 
-            // These Widgets belong to Journal_row.xml
             userTitle = itemView.findViewById(R.id.usernameTV);
             description = itemView.findViewById(R.id.descriptionTextView);
             dateAdded = itemView.findViewById(R.id.dateTV);
             activityType = itemView.findViewById(R.id.activityTV);
             postImage = itemView.findViewById(R.id.postIV);
             profileImage = itemView.findViewById(R.id.profileIV);
-//            sendImage = itemView.findViewById(R.id.sendIV);
-//            commentBar = itemView.findViewById(R.id.commentET);
+
         }
     }
 }

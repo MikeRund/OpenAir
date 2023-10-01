@@ -76,8 +76,6 @@ public class EditProfileActivity extends BaseActivity {
         saveBTN = findViewById(R.id.saveBTN);
 
 
-
-
         // Action bar
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -87,17 +85,6 @@ public class EditProfileActivity extends BaseActivity {
 //         Set to existing data
         if (User.getInstance() != null){
             currentUserId = User.getInstance().getUserId();
-
-//            currentUsername = User.getInstance().getUsername();
-//            currentDescription = collectionReference
-//            currentImageURL = User.getInstance().getImageURL();
-//            System.out.println("Url: " + currentImageURL);
-//
-//            usernameET.setText(currentUsername);
-//            descriptionET.setText(currentDescription);
-//            Glide.with(this).load(currentImageURL).into(profileImage);
-
-
         }
 
         authStateListener = new FirebaseAuth.AuthStateListener() {
@@ -208,7 +195,7 @@ public class EditProfileActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Toast.makeText(this, "OnActResultActivated", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "OnActResultActivated", Toast.LENGTH_SHORT).show();
 
         if (requestCode == GALLERY_CODE && resultCode == RESULT_OK){
             if(data != null) {
@@ -236,7 +223,7 @@ public class EditProfileActivity extends BaseActivity {
                         currentUsername = documentSnapshot.getString("username");
                         currentDescription = documentSnapshot.getString("description");
                         currentImageURL = documentSnapshot.getString("imageURL");
-                        Toast.makeText(EditProfileActivity.this, "Url: " + currentImageURL, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(EditProfileActivity.this, "Url: " + currentImageURL, Toast.LENGTH_SHORT).show();
 
                         // Use the retrieved data here
                         Glide.with(EditProfileActivity.this).load(currentImageURL).into(profileImage);
@@ -246,26 +233,6 @@ public class EditProfileActivity extends BaseActivity {
                 }
             }
         });
-
-
-//        collectionReference.whereEqualTo("userId", User.getInstance().getUserId()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//            @Override
-//            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-//
-//                // Loading exisiting data
-//                if(!queryDocumentSnapshots.isEmpty()) {
-//                    currentUsername = User.getInstance().getUsername();
-//                    currentDescription = User.getInstance().getDescription();
-//                    currentImageURL = User.getInstance().getImageURL();
-//                    Toast.makeText(EditProfileActivity.this, "Url: " + currentImageURL, Toast.LENGTH_SHORT).show();
-//
-//                    // Use the retrieved data here
-//                    Glide.with(EditProfileActivity.this).load(currentImageURL).into(profileImage);
-//                    usernameET.setText(currentUsername);
-//                    descriptionET.setText(currentDescription);
-//                }
-//            }
-//        });
     }
 
 
