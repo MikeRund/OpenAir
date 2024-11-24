@@ -20,6 +20,15 @@ technologies, and harnessing the power of social motivation and a simple reward 
 in a social media application to inspire users to perform more outdoor activities.
 
 ## Demo
+This demo will go through a use case where a pre-existing user: 
+
+1. Logs into their account
+2. Views the homepage, populated with their own and fellow users posts
+3. Opens the edit profile section
+4. Moves to the "My Profile" section, where they can view their unlocked
+   badges and their own posted activites
+5. Creates a new post activity, and see it in the home and personal feed
+6. Notice the left-most badge is now unlocked
 
 https://github.com/user-attachments/assets/3080d697-1ca3-4d06-85e1-63e3649a1a2a
 
