@@ -15,10 +15,16 @@ time spent outdoors before and after exposure to the application.
 ## Purpose
 Modern society often struggles with the health impacts of indoor lifestyles,
 such as fatigue and reduced cognitive and mental well-being. 
-OpenAir seeks to counter this trend by leveraging social motivation 
-and a simple reward system to inspire outdoor activities.
+OpenAir seeks to showcase that this trend can be countered by leveraging  the modern 
+technologies, and harnessing the power of social motivation and a simple reward system 
+in a social media application to inspire users to perform more outdoor activities.
 
 ## Core Features
+The funcitonality of this application is based around users posting their
+outdoor activities, which based off catgeories and an unlock system earns
+them corresponding badges, as well as exposure to their friends posts via a 
+scrollable feed.
+
 ### Activity Posting
 
 - Users can share outdoor activities by uploading photos, describing the activity, 
@@ -27,6 +33,8 @@ and a simple reward system to inspire outdoor activities.
 
 - The posts are displayed in a visually appealing, scrollable feed that resembles a
   timeline of outdoor adventures.
+
+  ![image](https://github.com/user-attachments/assets/3c0f224c-19b4-48ff-8127-e3bcc8a22e04)
 
 ### Scrollable Feed
 
@@ -37,21 +45,42 @@ and a simple reward system to inspire outdoor activities.
   and activity descriptions to inspire viewers without causing overstimulation
   or app dependency.
 
-### Gamification with Badge System
+![image](https://github.com/user-attachments/assets/6ed621f4-4337-4b27-8638-7413e1942041) ![image](https://github.com/user-attachments/assets/dd3d30a7-d3ae-4031-b891-c7016c4afddb)
 
-- To encourage consistent outdoor engagement, users unlock badges by
-  reaching specific milestones, such as completing a set number of activities.
-  
-- Different badge types are linked to specific activity categories, offering
-  variety and catering to diverse interests.
-  
-### My Stuff Section
+
+### My Stuff Section and Badge System
 
 - A personalized space where users can view their own posts and monitor
   their progress toward badge achievements.
   
 - This section includes a clean and simple badge display that motivates
   users to engage more frequently in outdoor activities.
+
+- To encourage consistent outdoor engagement, users unlock badges by
+  reaching specific milestones, such as completing a set number of activities.
+  
+- Different badge types are linked to specific activity categories, offering
+  variety and catering to diverse interests.
+
+![image](https://github.com/user-attachments/assets/eea14b93-cc61-44b2-9004-2a109159dcdc) ![image](https://github.com/user-attachments/assets/b638062a-cb6d-44e8-8b57-8a19c4a93564)
+
+### Edit Profile Section
+
+- Users can select an image to display as a profile picture from their
+  camera role and and a short description for themselves
+
+  ![image](https://github.com/user-attachments/assets/bed4440e-2ba6-4a3f-bbab-0a09d31d246f)
+
+### Login / Signup 
+
+- Upon launching the app users can either chose to log in with an exisiting email
+  and password or signup with a new one.
+
+- Utlizies Google Firebases cloud based Authenitcation tool.
+
+![image](https://github.com/user-attachments/assets/b476bcad-b5b7-443b-9281-24b703b5d7fe) ![image](https://github.com/user-attachments/assets/36ddd0bb-2b02-4e9c-816c-1d2c4ba51d5f)
+
+
   
 ### Streamlined User Interface
 
