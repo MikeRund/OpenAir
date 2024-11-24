@@ -19,11 +19,17 @@ OpenAir seeks to showcase that this trend can be countered by leveraging  the mo
 technologies, and harnessing the power of social motivation and a simple reward system 
 in a social media application to inspire users to perform more outdoor activities.
 
+## Demo
+
+https://github.com/user-attachments/assets/3080d697-1ca3-4d06-85e1-63e3649a1a2a
+
+
 ## Core Features
 The funcitonality of this application is based around users posting their
 outdoor activities, which based off catgeories and an unlock system earns
 them corresponding badges, as well as exposure to their friends posts via a 
 scrollable feed.
+
 
 ### Activity Posting
 
