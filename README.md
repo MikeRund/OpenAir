@@ -145,19 +145,68 @@ scrollable feed.
   
 - Each activity type increments a counter in the user’s document, which is checked
   to determine badge unlock conditions.
+
+## Closed-Alpha Release & Study Results 
+
+### Study Overview
+The OpenAir application was evaluated through a closed alpha study to determine its 
+impact on users’ outdoor activity habits. The study was conducted in two phases:
+
+#### Phase One (Baseline Data Collection): 
+
+Participants recorded their outdoor activities
+manually without the app, providing a baseline measure of time spent outdoors. 
+Activities were categorized into predefined types (e.g., walk, hike, swim) to align
+with the app’s structure.
+
+#### Phase Two (Application Deployment): 
+
+Participants used OpenAir to record their 
+activities while continuing to self-record data for comparison. This dual recording 
+ensured data reliability and facilitated easy comparison with baseline results.
+
+### Results
+#### Quantitative Findings:
+
+- The results varied significantly among participants. While some users increased their 
+   time outdoors, others reported declines, influenced by external factors such as poor
+   weather or changes in personal circumstances.
   
-## Study and Results
-The application underwent a closed alpha test with a small group of participants 
-to evaluate its impact on encouraging outdoor activities. Participants provided 
-quantitative data on their outdoor activities before and after using OpenAir, 
-along with qualitative feedback on the app's design, usability, and motivational effects.
+- After adjusting for two participants who experienced location changes during the
+  study (moving from rural to urban environments), the modified data set showed a
+  more balanced trend:
+   - 40% of participants reported an increase in outdoor activity.
+   - 40% reported a decrease.
+   - 20% showed no significant change.
+ 
+![image](https://github.com/user-attachments/assets/aa8928f0-4b78-4920-9331-7b8006cf1266)
 
-Positive Outcomes:
-Some users reported increased motivation to perform outdoor activities, 
-particularly driven by the badge system and the social encouragement from 
-seeing others’ posts.
+Engagement Metrics:
+- Firebase analytics revealed that the average session engagement time was
+  approximately 4 minutes and 20 seconds, with an average total engagement
+  time of 23 minutes per user across the study period.
+- This meets the requirements of avoiding excessive use of the application.
+  
+#### Qualitative Feedback:
+Participants provided insights into their experience with the app:
 
-Challenges Identified:
-Environmental factors like weather and location changes significantly 
-impacted activity levels, highlighting areas for improvement in the study 
-design and app features.
+- Several participants felt motivated to engage in outdoor activities,
+  attributing this to the app’s badge system and social encouragement
+  from viewing others’ posts.
+- Suggestions for improvement included adding features such as a comment
+  section, group functionality, and motivational notifications.
+- No adverse mental health effects were reported, and the app’s
+  minimalistic design helped avoid overuse or addiction.
+
+### Limitations
+The study faced several limitations that affected the results:
+
+- Environmental Variability: Poor weather conditions during Phase Two
+  impacted outdoor activity levels for participants based in the UK.
+- Sample Size: The small number of participants limited the generalizability
+  of the findings. This was further reduced by the need for all participants
+  to share posts in a shared feed, making privacy a concern for potential recruits.
+- Study Duration: The study lasted only two weeks, which may not have been
+  sufficient to observe long-term behavioral changes.
+- Prototype Features: The app lacked certain features, such as a friends system
+  and enhanced gamification, which could have provided stronger incentives for sustained engagement.
